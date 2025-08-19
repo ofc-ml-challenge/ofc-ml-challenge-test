@@ -116,18 +116,6 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 
 ---
 
-## How to Run (Command Line)
-
-If you export the notebooks to `.py`:
-
-```bash
-# From repo root
-python code/kaggle_feature_extraction_user.py
-python code/ML_example_kaggle.py
-```
-
----
-
 ## Outputs
 
 After running both scripts you should have:
