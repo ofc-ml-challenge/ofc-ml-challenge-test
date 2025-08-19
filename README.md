@@ -9,7 +9,7 @@ This repository contains two scripts that take you from raw JSON measurement dat
 
 ## Environment
 
-- Python: **3.11.9** (reference version used)  
+- Recommended Python: **3.11**  
 
 ```bash
 pip install -U pip
