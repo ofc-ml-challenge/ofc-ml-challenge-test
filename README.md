@@ -106,7 +106,7 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 
 1. Open the repo in VS Code.  
 2. Open `code/kaggle_feature_extraction_user.ipynb`.  
-3. Select the Python **3.11.9** kernel.  
+3. Select the correct Python kernel.  
 4. Run all cells. This generates CSVs under `Features/Train` and `Features/Test`.  
 5. Open `code/ML_example_kaggle.ipynb`.  
 6. Run all cells. Outputs:  
