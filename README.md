@@ -1,9 +1,11 @@
 # ML Challenge — Feature Extraction & Baseline Model
 
-This repository contains two scripts that take you from raw JSON measurement data to a Kaggle-style submission:
+This repository contains two main scripts that take you from raw JSON measurement data to a Kaggle-style submission:
 
-1. **Feature extraction** → builds train/test CSVs from JSON  
-2. **ML example** → trains a DNN and writes predictions for the test set
+1. **Feature extraction** &rarr; builds train/test CSVs from JSON  
+2. **ML example** &rarr; trains a DNN and writes predictions for the test set  
+
+Additionally, **COSMOS_EDFA_Dataset** is under `dataset/`, which provides extra EDFA measurement data. These are optional to use, but available if you want to extend training and evaluation.  
 
 ---
 
@@ -16,7 +18,7 @@ pip install -U pip
 pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 ```
 
-> The feature extraction script imports `libs.edfa_feature_extraction_libs`.  
+> The feature extraction script imports `libs.edfa_feature_extraction_libs` and `libs.edfaBasicLib`.  
 
 ---
 
@@ -32,6 +34,9 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 │       └── edfa_feature_extraction_libs.py
 │
 ├── dataset
+│   ├── COSMOS_EDFA_Dataset        # optional additional data
+│   │   ├── booster/{15dB,18dB,21dB}/...
+│   │   └── preamp/{15dB,18dB,21dB,24dB,27dB}/...
 │   └── ML_challenge_user
 │       ├── Test
 │       │   ├── aging/*.json
@@ -45,17 +50,23 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 ├── Features
 │   ├── Test
 │   │   ├── test_features.csv
+│   │   ├── test_labels.csv
 │   │   ├── aging/features/*.csv
 │   │   ├── shb/features/*.csv
 │   │   └── unseen/features/*.csv
 │   └── Train
 │       ├── train_features.csv
 │       ├── train_labels.csv
+│       ├── COSMOS_features.csv          # optional features
+│       ├── COSMOS_labels.csv            # optional labels
 │       ├── aging/{features,labels}/*.csv
 │       ├── shb/{features,labels}/*.csv
 │       └── unseen/{features,labels}/*.csv
 │
 ├── figures
+│
+├── manual
+│   └── Ranges_ProductGuide_ROADM.pdf
 │
 └── model
     └── ML_example_model.h5
@@ -70,11 +81,12 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 - Reads raw JSON files from:
   - `dataset/ML_challenge_user/Train/{shb,aging,unseen}`
   - `dataset/ML_challenge_user/Test/{shb,aging,unseen}`
-- Extracts features using `featureExtraction_ML`.
+  - (Optionally) `dataset/COSMOS_EDFA_Dataset/{booster,preamp}/*/*.json`
+- Extracts features using `featureExtraction_ML` and utilities in `libs/`.
 - Infers:
   - **EDFA type** (`preamp` or `booster`)
   - **channel type** (`random`, `fix`, `goalpost`, `extraRandom`, `extraLow`)
-  - **EDFA name** &rarr; mapped to index via hardcoded dictionary
+  - **EDFA name** &rarr; mapped to index via dictionary
 - Outputs intermediate CSVs for each dataset.
 - Splits each CSV into:
   - `*_features.csv` (input features)
@@ -83,6 +95,7 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
   - `Features/Train/train_features.csv`
   - `Features/Train/train_labels.csv`
   - `Features/Test/test_features.csv` (adds `ID`, `Usage`, `Category`)
+  - (Optionally) `Features/Train/COSMOS_features.csv` and `COSMOS_labels.csv`
 
 ### `code/ML_example_kaggle.ipynb`
 
@@ -90,8 +103,9 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
   - `Features/Train/train_features.csv`
   - `Features/Train/train_labels.csv`
   - `Features/Test/test_features.csv`
-- Converts selected columns from dB → linear.
-- Defines and trains a dense neural network (DNN):
+  - (Optionally) `Features/Train/COSMOS_features.csv` and `COSMOS_labels.csv`
+- Converts selected columns from dB &rarr; linear.
+- Defines and trains a DNN:
   - Custom **L2 loss** computed only on loaded channels
   - Optimizer = 500 epochs, 20% validation split
 - Saves trained model:
@@ -108,6 +122,7 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
 2. Open `code/kaggle_feature_extraction_user.ipynb`.  
 3. Select the correct Python kernel.  
 4. Run all cells. This generates CSVs under `Features/Train` and `Features/Test`.  
+   - If you want to include COSMOS data, adjust the notebook accordingly.  
 5. Open `code/ML_example_kaggle.ipynb`.  
 6. Run all cells. Outputs:  
    - `model/ML_example_model.h5`  
@@ -126,3 +141,5 @@ After running both scripts you should have:
 - `Features/Test/test_labels.csv` &larr; Kaggle-style predictions  
 - `model/ML_example_model.h5`  
 - `figures/*.png` (optional plots)  
+- (Optional, if COSMOS used) `Features/Train/COSMOS_features.csv`, `COSMOS_labels.csv`  
+
