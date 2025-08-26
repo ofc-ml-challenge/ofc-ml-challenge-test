@@ -95,7 +95,7 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
   - `Features/Train/train_features.csv`
   - `Features/Train/train_labels.csv`
   - `Features/Test/test_features.csv` (adds `ID`, `Usage`, `Category`)
-  - (Optionally) `Features/Train/COSMOS_features.csv` and `COSMOS_labels.csv`
+  - `Features/Train/COSMOS_features.csv` and `COSMOS_labels.csv` (optional)
 
 ### `code/ML_example_kaggle.ipynb`
 
