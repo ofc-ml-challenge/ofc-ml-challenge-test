@@ -141,5 +141,5 @@ After running both scripts you should have:
 - `Features/Test/test_labels.csv` &larr; Kaggle-style predictions  
 - `model/ML_example_model.h5`  
 - `figures/*.png` (optional plots)  
-- (Optional, if COSMOS used) `Features/Train/COSMOS_features.csv`, `COSMOS_labels.csv`  
+- `Features/Train/COSMOS_features.csv`, `COSMOS_labels.csv` (optional, if COSMOS used)
 
