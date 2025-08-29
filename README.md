@@ -104,7 +104,6 @@ pip install pandas numpy matplotlib tensorflow prettytable scipy scikit-learn
   - `Features/Train/train_labels.csv`
   - `Features/Test/test_features.csv`
   - (Optionally) `Features/Train/COSMOS_features.csv` and `COSMOS_labels.csv`
-- Converts selected columns from dB &rarr; linear.
 - Defines and trains a DNN:
   - Custom **L2 loss** computed only on loaded channels
   - Optimizer = 500 epochs, 20% validation split
